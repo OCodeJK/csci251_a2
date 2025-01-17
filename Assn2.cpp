@@ -1,7 +1,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "class.cpp"
+#include "ShapeTwoD.cpp"
+#include "Square.h"
 
 using namespace std;
 
@@ -53,33 +54,20 @@ int main() {
             }
 
             if (shapeName == "Square" || shapeName == "Rectangle") {
-                verticeCount = 4;
-                for (int i=0; i<verticeCount; i++){
+                int x[4], y[4];
+                for (int i=0; i< 4; i++){
                     cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
-                    cin >> x;
+                    cin >> x[i];
                     cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
-                    cin >> y;
+                    cin >> y[i];
                     cout << endl;
 
-                    //add checker to check if input is a number
-                    if (!isdigit(stoi(x))){
-                        errorMessage = "Invalid input for x : " + x;
-                        if (stoi(x) < 0) {
-                            errorMessage = "Negative Coords for x : " + x;
-                        }
-                    } else if (!isdigit(stoi(y))) {
-                        errorMessage = "Invalid input for y : " + y;
-                        if (stoi(y) < 0) {
-                            errorMessage = "Negative Coords for y: " + y;
-                        }
-                    }
-
-
-                    //How to store the coordinate properly?
-
-
                 }
+
+                shapes.push_back(new Square(shapeName, canWarpSpace, x, y));
             }
+
+            cout << "Records sucessfully stored. Going back to main menu ...";
             
 
             
@@ -87,8 +75,34 @@ int main() {
 
         } else if (choice == 2) {
 
+            if (shapes.empty()) {
+                cout << "No shapes available to compute." << endl;
+            } else {
+                for (int i = 0; i < shapes.size(); i++){
+                    double area = shapes[i]->computeArea();
+                }
+                cout << "Computation completed! (" << shapes.size() << " records were updated)" << endl;
+            }
+            
         } else if (choice == 3) {
+            cout << "Total no. of records available = " << shapes.size() << endl;
 
+            if (shapes.empty()) {
+                cout << "No shapes available to display." << endl;
+            } else {
+                cout << endl;
+                for (size_t i = 0; i < shapes.size(); ++i) {
+                    cout << "Shape [" << i << "]" << endl;
+                    
+                    cout << shapes[i]->toString() << endl; // Uses polymorphism to print the shape details
+                }
+            }
+
+            //Wait for user to press enter
+            cout << endl;
+            cout << "Press <enter> to return to main menu...";
+            cin.ignore();
+            cin.get();
         } else if (choice == 4) {
             
         }
