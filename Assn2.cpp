@@ -3,6 +3,7 @@
 #include <iostream>
 #include "ShapeTwoD.cpp"
 #include "Square.h"
+#include "extraFunction.h"
 
 using namespace std;
 
@@ -41,19 +42,21 @@ int main() {
             cout << "[ Input sensor data ]" << endl;
             cout << "Please enter name of shape : ";
             cin >> shapeName;
+            shapeName = toLowerCase(shapeName);
 
             cout << "Please enter special type : ";
             cin >> warpSpace;
+            warpSpace = toLowerCase(warpSpace);
 
-            if (warpSpace == "WS") {
+            if (warpSpace == "ws") {
                 canWarpSpace = true;
-            } else if (warpSpace == "NS") {
+            } else if (warpSpace == "ns") {
                 canWarpSpace == false;
             } else {
                 errorMessage = "Invalid type, Please use NS or WS.";
             }
 
-            if (shapeName == "Square" || shapeName == "Rectangle") {
+            if (shapeName == "square" || shapeName == "rectangle") {
                 int x[4], y[4];
                 for (int i=0; i< 4; i++){
                     cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
@@ -92,6 +95,7 @@ int main() {
             } else {
                 cout << endl;
                 for (size_t i = 0; i < shapes.size(); ++i) {
+                    cout << endl;
                     cout << "Shape [" << i << "]" << endl;
                     
                     cout << shapes[i]->toString() << endl; // Uses polymorphism to print the shape details

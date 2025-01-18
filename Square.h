@@ -4,6 +4,7 @@
 #include "ShapeTwoD.cpp"
 #include <sstream>
 #include <algorithm>
+#include <cmath>
 
 class Square : public ShapeTwoD {
 private:
@@ -14,7 +15,7 @@ public:
     // Constructor to initialize square vertices
     Square(string name, bool containsWarpSpace, int x[4], int y[4])
         : ShapeTwoD(name, containsWarpSpace) {
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             this->xCoords[i] = x[i];
             this->yCoords[i] = y[i];
         }
@@ -22,7 +23,7 @@ public:
 
     // Compute area of square
     double computeArea() override {
-        int side = abs(xCoords[0] - xCoords[1]); // Assuming input coordinates are correct
+        double side = sqrt(pow(xCoords[1] - xCoords[0], 2) + pow(yCoords[1] - yCoords[0], 2)); // Assuming input coordinates are correct
         return side * side;
     }
 
@@ -47,6 +48,56 @@ public:
                ((py == minY || py == maxY) && (px >= minX && px <= maxX));
     }
 
+    // Calculate points on perimeter
+    void getPointsOnPerimeter(int xPoints[], int yPoints[], int &count) const {
+        count = 0; // Reset point count
+
+        int minX = *min_element(xCoords, xCoords + 4);
+        int maxX = *max_element(xCoords, xCoords + 4);
+        int minY = *min_element(yCoords, yCoords + 4);
+        int maxY = *max_element(yCoords, yCoords + 4);
+
+        for (int x = minX; x <= maxX; ++x) {
+            for (int y = minY; y <= maxY; ++y) {
+                if (isPointOnShape(x, y)) {
+                    // Skip the vertices
+                    bool isVertex = false;
+                    for (int i = 0; i < 4; ++i) {
+                        if (x == xCoords[i] && y == yCoords[i]) {
+                            isVertex = true;
+                            break;
+                        }
+                    }
+                    if (!isVertex) { // Add the point if it's not a vertex
+                        xPoints[count] = x;
+                        yPoints[count] = y;
+                        count++;
+                    }
+                }
+            }
+        }
+    }
+
+    // Calculate points within shape
+    void getPointsWithinShape(int xPoints[], int yPoints[], int &count) const {
+        count = 0; // Reset point count
+
+        int minX = *min_element(xCoords, xCoords + 4);
+        int maxX = *max_element(xCoords, xCoords + 4);
+        int minY = *min_element(yCoords, yCoords + 4);
+        int maxY = *max_element(yCoords, yCoords + 4);
+
+        for (int x = minX + 1; x < maxX; x++) {
+            for (int y = minY + 1; y < maxY; y++) {
+                if (isPointInShape(x, y)) { // Use the helper function
+                    xPoints[count] = x;
+                    yPoints[count] = y;
+                    count++;
+                }
+            }
+        }
+    }
+
     // toString method
     string toString() override {
         ostringstream oss;
@@ -58,6 +109,28 @@ public:
         for (int i = 0; i < 4; ++i) {
             oss << "\nPoint [" << i << "]: (" << xCoords[i] << ", " << yCoords[i] << ")";
         }
+
+        // Points on perimeter
+        int xPerimeter[100], yPerimeter[100]; // Large enough arrays to hold points
+        int perimeterCount = 0;
+        getPointsOnPerimeter(xPerimeter, yPerimeter, perimeterCount);
+        oss << "\nPoints on perimeter: ";
+        for (int i = 0; i < perimeterCount; ++i) {
+            oss << "(" << xPerimeter[i] << ", " << yPerimeter[i] << ")";
+            if (i < perimeterCount - 1) oss << ", ";
+        }
+        oss << endl;
+
+        // Points within shape
+        int xInterior[100], yInterior[100]; // Large enough arrays to hold points
+        int interiorCount = 0;
+        getPointsWithinShape(xInterior, yInterior, interiorCount);
+        oss << "Points within shape: ";
+        for (int i = 0; i < interiorCount; ++i) {
+            oss << "(" << xInterior[i] << ", " << yInterior[i] << ")";
+            if (i < interiorCount - 1) oss << ", ";
+        }
+        oss << endl;
         
         return oss.str();
     }

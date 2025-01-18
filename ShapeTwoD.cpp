@@ -25,7 +25,6 @@ class ShapeTwoD {
             return containsWarpSpace;
         }
 
-        
 
         //toString method
         virtual string toString() {
