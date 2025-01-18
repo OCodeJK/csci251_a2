@@ -109,7 +109,7 @@ public:
         for (int i = 0; i < 4; ++i) {
             oss << "\nPoint [" << i << "]: (" << xCoords[i] << ", " << yCoords[i] << ")";
         }
-
+        oss << endl;
         // Points on perimeter
         int xPerimeter[100], yPerimeter[100]; // Large enough arrays to hold points
         int perimeterCount = 0;
@@ -120,7 +120,7 @@ public:
             if (i < perimeterCount - 1) oss << ", ";
         }
         oss << endl;
-
+        oss << endl;
         // Points within shape
         int xInterior[100], yInterior[100]; // Large enough arrays to hold points
         int interiorCount = 0;

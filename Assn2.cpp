@@ -109,6 +109,8 @@ int main() {
             cin.get();
         } else if (choice == 4) {
             
+        } else {
+            errorMessage = "Invalid choice please pick from the above menu only...";
         }
 
     } while (choice != 5);
