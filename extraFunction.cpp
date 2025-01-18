@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cctype>
 #include <string>
+#include "extraFunction.h"
 
 using namespace std;
 
