@@ -2,14 +2,18 @@
 #include <vector>
 #include <iostream>
 #include "ShapeTwoD.cpp"
-#include "Square.h"
+#include "Square.cpp"
+#include "Rectangle.cpp"
+#include "Circle.cpp"
 #include "extraFunction.h"
 
 using namespace std;
 
 int main() {
-    vector<ShapeTwoD*> shapes;
-    int choice;
+    ShapeTwoD* shapes[100]; //Fixed-size array to store shapes
+    int shapeCount = 0; //Counter for number of shapes
+    string choice;
+    int cleaned_choice;
     string errorMessage;
 
     do {
@@ -25,98 +29,170 @@ int main() {
         cout << "4)   Sort shapes data" << endl;
         cout << "5)   Quit" << endl;
         cout << endl;
+        //Display error message below the menu
+        if(!errorMessage.empty()){
+            cout << errorMessage << endl;
+            errorMessage.clear();
+        }
         cout << "Please enter your choice: ";
         cin >> choice;
-        cout << endl;
-        if(!errorMessage.empty()) {
-            cout << errorMessage;
-        }
 
-        if(choice == 1) {
-            string shapeName;
-            string warpSpace;
-            bool canWarpSpace;
-            int verticeCount;
-            string x, y;
+        if(!choice.empty() && choice.length() == 1 && isdigit(choice[0])){
+            //conver the character to integer
+            int digit = choice[0] - '0';
 
-            cout << "[ Input sensor data ]" << endl;
-            cout << "Please enter name of shape : ";
-            cin >> shapeName;
-            shapeName = toLowerCase(shapeName);
-
-            cout << "Please enter special type : ";
-            cin >> warpSpace;
-            warpSpace = toLowerCase(warpSpace);
-
-            if (warpSpace == "ws") {
-                canWarpSpace = true;
-            } else if (warpSpace == "ns") {
-                canWarpSpace == false;
+            if (digit >= 1 && digit <= 5) {
+                cleaned_choice = digit;
             } else {
-                errorMessage = "Invalid type, Please use NS or WS.";
+                errorMessage = "Invalid input. Please enter only one of the options";
+                continue;
             }
-
-            if (shapeName == "square" || shapeName == "rectangle") {
-                int x[4], y[4];
-                for (int i=0; i< 4; i++){
-                    cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
-                    cin >> x[i];
-                    cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
-                    cin >> y[i];
-                    cout << endl;
-
-                }
-
-                shapes.push_back(new Square(shapeName, canWarpSpace, x, y));
-            }
-
-            cout << "Records sucessfully stored. Going back to main menu ...";
-            
-
-            
-
-
-        } else if (choice == 2) {
-
-            if (shapes.empty()) {
-                cout << "No shapes available to compute." << endl;
-            } else {
-                for (int i = 0; i < shapes.size(); i++){
-                    double area = shapes[i]->computeArea();
-                }
-                cout << "Computation completed! (" << shapes.size() << " records were updated)" << endl;
-            }
-            
-        } else if (choice == 3) {
-            cout << "Total no. of records available = " << shapes.size() << endl;
-
-            if (shapes.empty()) {
-                cout << "No shapes available to display." << endl;
-            } else {
-                cout << endl;
-                for (size_t i = 0; i < shapes.size(); ++i) {
-                    cout << endl;
-                    cout << "Shape [" << i << "]" << endl;
-                    
-                    cout << shapes[i]->toString() << endl; // Uses polymorphism to print the shape details
-                }
-            }
-
-            //Wait for user to press enter
-            cout << endl;
-            cout << "Press <enter> to return to main menu...";
-            cin.ignore();
-            cin.get();
-        } else if (choice == 4) {
-            
         } else {
-            errorMessage = "Invalid choice please pick from the above menu only...";
+            errorMessage = "Invalid input. Please enter a single digit only";
+            continue;
         }
 
-    } while (choice != 5);
+        switch(cleaned_choice){
+            case 1:{
+                string shapeName;
+                string warpSpace;
+                bool canWarpSpace;
+                int verticeCount;
+                string x, y;
 
-    for (auto shape : shapes){
-        delete shape;
+                cout << "[ Input sensor data ]" << endl;
+                cout << "Please enter name of shape : ";
+                cin >> shapeName;
+                shapeName = toLowerCase(shapeName);
+
+                if ((shapeName == "square") || (shapeName == "rectangle") || (shapeName == "circle") || (shapeName == "cross") ){
+                    //Do nothing
+                } else {
+                    errorMessage = "Invalid shape. Only square, rectangle, circle and cross are valid options";
+                    break;
+                }
+
+
+                cout << "Please enter special type : ";
+                cin >> warpSpace;
+                warpSpace = toLowerCase(warpSpace);
+
+                if (warpSpace == "ws") {
+                    canWarpSpace = true;
+                } else if (warpSpace == "ns") {
+                    canWarpSpace == false;
+                } else {
+                    errorMessage = "Invalid type, Please use NS or WS.";
+                    break;
+                }
+
+                if (shapeName == "square") {
+                    int x[4], y[4];
+                    for (int i=0; i< 4; i++){
+                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
+                        cin >> x[i];
+                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
+                        cin >> y[i];
+                        cout << endl;
+
+                    }
+                    shapeName = "Square";
+
+                    if(shapeCount < 100) {
+                        shapes[shapeCount] = new Square(shapeName, canWarpSpace, x, y);
+                        shapeCount++;
+                    }
+                    cout << "Records sucessfully stored. Going back to main menu ...";
+                } else if (shapeName == "rectangle") {
+                    int x[4], y[4];
+                    for (int i=0; i< 4; i++){
+                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
+                        cin >> x[i];
+                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
+                        cin >> y[i];
+                        cout << endl;
+
+                    }
+                    shapeName = "Rectangle";
+
+                    if(shapeCount < 100) {
+                        shapes[shapeCount] = new Rectangle(shapeName, canWarpSpace, x, y);
+                        shapeCount++;
+                    }
+                    cout << "Records sucessfully stored. Going back to main menu ...";
+                } else if (shapeName == "circle") {
+                    int centerX, centerY, radius;
+                    cout << "Please enter x-ordinate of center : ";
+                    cin >> centerX;
+                    cout << "Please enter y-ordinate of center : ";
+                    cin >> centerY;
+                    cout << "Please enter radius : ";
+                    cin >> radius;
+
+                    //validate radius
+                    if (radius <= 0) {
+                        errorMessage = "Radius must be greater than 0.";
+                    } else {
+                        shapeName="Circle";
+
+                        // if (shapeCount < 100) {
+                        //     shapes[shapeCount] = new Circle(shapeName, canWarpSpace, centerX, centerY, radius);
+                        //     shapeCount++;
+                        // }
+                    }
+                    cout << "Records sucessfully stored. Going back to main menu ...";
+                } else if (shapeName == "cross"){
+                    shapeName == "Cross";
+                    //implement cross here
+                    cout << "Records sucessfully stored. Going back to main menu ...";
+                }
+                break;
+            }
+            //Option 2: Compute Area for all shapes
+            case 2:
+                if (shapeCount == 0) {
+                    cout << "\nNo shapes available to compute." << endl;
+                } else {
+                    for (int i = 0; i < shapeCount; i++){
+                        double area = shapes[i]->computeArea();
+                    }
+                    cout << "\nComputation completed! (" << shapeCount << " records were updated)" << endl;
+                }
+                break;
+            //Print the shapes
+            case 3:
+                cout << "Total no. of records available = " << shapeCount << endl;
+
+                if (shapeCount == 0) {
+                    cout << "No shapes available to display." << endl;
+                } else {
+                    cout << endl;
+                    for (int i = 0; i < shapeCount; i++) {
+                        cout << endl;
+                        cout << "Shape [" << i << "]" << endl;
+                        
+                        cout << shapes[i]->toString() << endl; // Uses polymorphism to print the shape details
+                    }
+                }
+
+                //Wait for user to press enter
+                cout << endl;
+                cout << "Press <enter> to return to main menu...";
+                cin.ignore();
+                cin.get();
+                break;
+            //Sort Function here
+            case 4:
+                cout << "Please implement sort function here" << endl;
+                break;
+                
+        }
+
+    } while (cleaned_choice != 5);
+
+    //Free memory for all shapes
+    for (int i=0; i<shapeCount; i++){
+        delete shapes[i];
     }
 
     return 0;   
