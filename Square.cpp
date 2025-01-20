@@ -13,7 +13,11 @@ Square::Square(string name, bool containsWarpSpace, int x[], int y[])
 }
 
 double Square::computeArea() {
-    int sideLength = abs(xCoords[0] - xCoords[1]);
+    // Calculate side length using distance formula between the first two vertices
+    int dx = xCoords[0] - xCoords[1];
+    int dy = yCoords[0] - yCoords[1];
+    double sideLength = sqrt(dx * dx + dy * dy);
+
     return sideLength * sideLength;
 }
 
@@ -57,6 +61,7 @@ string Square::toString() {
     // Points on perimeter
     oss << "\nPoints on perimeter: ";
     bool isFirst = true;
+    bool hasPerimeterPoints = false;
     int minX = *min_element(xCoords, xCoords + 4);
     int maxX = *max_element(xCoords, xCoords + 4);
     int minY = *min_element(yCoords, yCoords + 4);
@@ -77,9 +82,13 @@ string Square::toString() {
                     if (!isFirst) oss << ", ";
                     oss << "(" << x << ", " << y << ")";
                     isFirst = false;
+                    hasPerimeterPoints = true;
                 }
             }
         }
+    }
+    if(!hasPerimeterPoints){
+        oss << "none!";
     }
     oss << endl;
     oss << endl;
@@ -87,14 +96,19 @@ string Square::toString() {
     // Points within shape
     oss << "Points within shape: ";
     isFirst = true;
+    bool hasInnerPoints = false;
     for (int x = minX; x <= maxX; x++) {
         for (int y = minY; y <= maxY; y++) {
             if (isPointInShape(x, y)) {
                 if (!isFirst) oss << ", ";
                 oss << "(" << x << ", " << y << ")";
                 isFirst = false;
+                hasInnerPoints = true;
             }
         }
+    }
+    if(!hasInnerPoints) {
+        oss << "none!";
     }
     oss << endl;
 

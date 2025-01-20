@@ -64,6 +64,7 @@ string Rectangle::toString() {
     // Points on perimeter
     oss << "\nPoints on perimeter: ";
     bool isFirst = true;
+    bool hasPerimeterPoints = false;
     int minX = *min_element(xCoords, xCoords + 4);
     int maxX = *max_element(xCoords, xCoords + 4);
     int minY = *min_element(yCoords, yCoords + 4);
@@ -84,9 +85,13 @@ string Rectangle::toString() {
                     if (!isFirst) oss << ", ";
                     oss << "(" << x << ", " << y << ")";
                     isFirst = false;
+                    hasPerimeterPoints = true;
                 } 
             }
         }
+    }
+    if (!hasPerimeterPoints) {
+        oss << "none!";
     }
     oss << endl;
     oss << endl;
@@ -94,14 +99,19 @@ string Rectangle::toString() {
     // Points within shape
     oss << "Points within shape: ";
     isFirst = true;
+    bool hasInnerPoints = false;
     for (int x = minX; x <= maxX; x++) {
         for (int y = minY; y <= maxY; y++) {
             if (isPointInShape(x, y)) {
                 if (!isFirst) oss << ", ";
                 oss << "(" << x << ", " << y << ")";
                 isFirst = false;
+                hasInnerPoints = true;
             }
         }
+    }
+    if (!hasInnerPoints) {
+        oss << "none!";
     }
     oss << endl;
 

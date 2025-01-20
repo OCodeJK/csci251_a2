@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include "ShapeTwoD.h"
 #include "Square.h"
 #include "Rectangle.h"
@@ -7,6 +8,7 @@
 #include "extraFunction.h"
 
 using namespace std;
+
 
 int main() {
     ShapeTwoD* shapes[100]; //Fixed-size array to store shapes
@@ -188,20 +190,27 @@ int main() {
                 cout << "\n   a)   Sort by area (ascending)" << endl;
                 cout << "   b)   Sort by area (descending)" << endl;
                 cout << "   c)   Sort by special type and area" << endl;
-                cout << "\nPlease select sort option ('q' to go back to main menu) : ";
+                cout << "\nPlease select sort option ('q' to go main menu) : ";
                 cin >> subChoice;
 
                 //Implement sort function here
                 if (subChoice == "a") {
-
+                    //Sort shapes by area in ascending order
+                    cout << "\nSort by area (largest to smallest)." << endl;
+                    
+                    
                 } else if (subChoice == "b") {
-
+                    //Sort shapes by area in descending order
+                    cout << "\nSort by area (smallest to largest)." << endl;
+                    
                 } else if (subChoice == "c") {
+                    //Sort shapes by special type and area
+                    
 
                 } else if (subChoice == "q") {
                     break;
                 } else {
-                    errorMessage = "Invalid choice.";
+                    errorMessage = "Invalid choice. Going back to main menu...";
                 }
                 
         }
@@ -215,3 +224,4 @@ int main() {
 
     return 0;   
 }
+
