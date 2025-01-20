@@ -67,13 +67,10 @@ int main() {
                 cin >> shapeName;
                 shapeName = toLowerCase(shapeName);
 
-                if ((shapeName == "square") || (shapeName == "rectangle") || (shapeName == "circle") || (shapeName == "cross") ){
-                    //Do nothing
-                } else {
+                if ((shapeName != "square") || (shapeName != "rectangle") || (shapeName != "circle") || (shapeName != "cross") ){
                     errorMessage = "Invalid shape. Only square, rectangle, circle and cross are valid options";
                     break;
                 }
-
 
                 cout << "Please enter special type : ";
                 cin >> warpSpace;
