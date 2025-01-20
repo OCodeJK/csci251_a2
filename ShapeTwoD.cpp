@@ -1,60 +1,43 @@
-#ifndef ShapeTwoD_cpp
-#define ShapeTwoD_cpp
-
+#include "ShapeTwoD.h"
 #include <string>
 #include <sstream>
 
 using namespace std;
 
-class ShapeTwoD {
-    protected: 
-        string name;
-        bool containsWarpSpace;
 
-    public:
-        //Constructor
-        ShapeTwoD(string name, bool containsWarpSpace) : name(name), containsWarpSpace(containsWarpSpace) {};
+//Constructor
+ShapeTwoD::ShapeTwoD(string name, bool containsWarpSpace) : name(name), containsWarpSpace(containsWarpSpace) {};
 
-        //Getter for name
-        string getName(){
-            return name;
-        }
+//Getter for name
+string ShapeTwoD::getName(){
+    return name;
+}
 
-        //Getter for Warp Space
-        bool getContainsWarpSpace(){
-            return containsWarpSpace;
-        }
+//Getter for Warp Space
+bool ShapeTwoD::getContainsWarpSpace(){
+    return containsWarpSpace;
+}
 
 
-        //toString method
-        virtual string toString() {
-            ostringstream oss;
-            oss << "Name: " << name << endl;
-            oss << "Special Type: " << (containsWarpSpace ? "WS" : "NS") << endl;
-            
-            return oss.str();
-        }
-
-        //Pure virtual methods to be overidden by derived classes
-        virtual double computeArea() = 0;
-        virtual bool isPointInShape(int x, int y) const = 0;
-        virtual bool isPointOnShape(int x, int y) const = 0;
+//toString method
+string ShapeTwoD::toString() {
+    ostringstream oss;
+    oss << "Name: " << getName() << endl;
+    oss << "Special Type: " << (getContainsWarpSpace() ? "WS" : "NS") << endl;
+    
+    return oss.str();
+}
 
 
-        //setter for name
-        void setName(string name) {
-            this->name = name;
-        }
+//setter for name
+void ShapeTwoD::setName(string name) {
+    this->name = name;
+}
 
-        //setter for containsWarpSpace
-        void setContainsWarpSpace(bool containsWarpSpace){
-            this->containsWarpSpace = containsWarpSpace;
-        }
+//setter for containsWarpSpace
+void ShapeTwoD::setContainsWarpSpace(bool containsWarpSpace){
+    this->containsWarpSpace = containsWarpSpace;
+}
 
-        //Virtual Destructor
-        virtual ~ShapeTwoD(){}
-        
-};
-
-
-#endif
+//Virtual Destructor
+ ShapeTwoD::~ShapeTwoD(){}

@@ -1,10 +1,9 @@
 #include <string>
-#include <vector>
 #include <iostream>
-#include "ShapeTwoD.cpp"
-#include "Square.cpp"
-#include "Rectangle.cpp"
-#include "Circle.cpp"
+#include "ShapeTwoD.h"
+#include "Square.h"
+#include "Rectangle.h"
+#include "Circle.h"
 #include "extraFunction.h"
 
 using namespace std;
@@ -38,7 +37,7 @@ int main() {
         cin >> choice;
 
         if(!choice.empty() && choice.length() == 1 && isdigit(choice[0])){
-            //conver the character to integer
+            //convert the character to integer
             int digit = choice[0] - '0';
 
             if (digit >= 1 && digit <= 5) {
@@ -60,7 +59,8 @@ int main() {
                 int verticeCount;
                 string x, y;
 
-                cout << "[ Input sensor data ]" << endl;
+                cout << "\n[ Input sensor data ]";
+                cout << endl;
                 cout << "Please enter name of shape : ";
                 cin >> shapeName;
                 shapeName = toLowerCase(shapeName);
@@ -133,12 +133,11 @@ int main() {
                     if (radius <= 0) {
                         errorMessage = "Radius must be greater than 0.";
                     } else {
-                        shapeName="Circle";
-
-                        // if (shapeCount < 100) {
-                        //     shapes[shapeCount] = new Circle(shapeName, canWarpSpace, centerX, centerY, radius);
-                        //     shapeCount++;
-                        // }
+                        shapeName= "Circle";
+                        if (shapeCount < 100) {
+                            shapes[shapeCount] = new Circle(shapeName, canWarpSpace, centerX, centerY, radius);
+                            shapeCount++;
+                        }
                     }
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 } else if (shapeName == "cross"){
@@ -181,10 +180,29 @@ int main() {
                 cin.ignore();
                 cin.get();
                 break;
-            //Sort Function here
+            //Option 4: sort
             case 4:
-                cout << "Please implement sort function here" << endl;
-                break;
+                //open submenu
+                string subChoice;
+                
+                cout << "\n   a)   Sort by area (ascending)" << endl;
+                cout << "   b)   Sort by area (descending)" << endl;
+                cout << "   c)   Sort by special type and area" << endl;
+                cout << "\nPlease select sort option ('q' to go back to main menu) : ";
+                cin >> subChoice;
+
+                //Implement sort function here
+                if (subChoice == "a") {
+
+                } else if (subChoice == "b") {
+
+                } else if (subChoice == "c") {
+
+                } else if (subChoice == "q") {
+                    break;
+                } else {
+                    errorMessage = "Invalid choice.";
+                }
                 
         }
 
