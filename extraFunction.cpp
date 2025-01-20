@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cctype>
 #include <string>
+#include "ShapeTwoD.h"
 #include "extraFunction.h"
 
 using namespace std;
@@ -11,3 +12,4 @@ string toLowerCase(const string& str) {
     transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), [](unsigned char c) { return tolower(c); });
     return lowerStr;
 }
+

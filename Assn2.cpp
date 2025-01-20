@@ -67,7 +67,9 @@ int main() {
                 cin >> shapeName;
                 shapeName = toLowerCase(shapeName);
 
-                if ((shapeName != "square") || (shapeName != "rectangle") || (shapeName != "circle") || (shapeName != "cross") ){
+                if ((shapeName == "square") || (shapeName == "rectangle") || (shapeName == "circle") || (shapeName == "cross") ){
+                    
+                } else {
                     errorMessage = "Invalid shape. Only square, rectangle, circle and cross are valid options";
                     break;
                 }
@@ -193,22 +195,48 @@ int main() {
                 //Implement sort function here
                 if (subChoice == "a") {
                     //Sort shapes by area in ascending order
-                    cout << "\nSort by area (largest to smallest)." << endl;
-                    
+                    cout << "\nSort by area (smallest to largest) ..." << endl;
+                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
+                        return a->computeArea() < b->computeArea();
+                    });
                     
                 } else if (subChoice == "b") {
                     //Sort shapes by area in descending order
-                    cout << "\nSort by area (smallest to largest)." << endl;
-                    
+                    cout << "\nSort by area (largest to smallest) ..." << endl;
+                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
+                        return a->computeArea() > b->computeArea();
+                    });
                 } else if (subChoice == "c") {
-                    //Sort shapes by special type and area
+                    //Sort shapes by special type and area (descending)
+                    cout << "\nSort by special type (WS then NS) and area descending" << endl;
+                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
+                        if (a->getContainsWarpSpace() != b->getContainsWarpSpace()) {
+                            return a->getContainsWarpSpace() > b->getContainsWarpSpace();
+                        }
+                        return a->computeArea() > b->computeArea();
+                    });
                     
-
                 } else if (subChoice == "q") {
                     break;
                 } else {
                     errorMessage = "Invalid choice. Going back to main menu...";
                 }
+                //Output sorted shapes in the same format as case 3
+                if (shapeCount == 0) {
+                    cout << "No shapes available to display." << endl;
+                } else {
+                    for (int i = 0; i < shapeCount; i++) {
+                        cout << "\nShape [" << i << "]" << endl;
+                        cout << shapes[i]->toString() << endl;
+                    }
+                }
+
+                // Wait for user to press enter before returning to main menu
+                cout << endl;
+                cout << "Press <enter> to return to main menu...";
+                cin.ignore();
+                cin.get();
+                break;
                 
         }
 
