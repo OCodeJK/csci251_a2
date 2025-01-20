@@ -69,8 +69,8 @@ string Rectangle::toString() {
     int minY = *min_element(yCoords, yCoords + 4);
     int maxY = *max_element(yCoords, yCoords + 4);
 
-    for (int x = minX; x <= maxX; ++x) {
-        for (int y = minY; y <= maxY; ++y) {
+    for (int x = minX; x <= maxX; x++) {
+        for (int y = minY; y <= maxY; y++) {
             if (isPointOnShape(x, y)) {
                 //Exclude vertices from the perimeter points
                 bool isVertex = false;
@@ -94,8 +94,8 @@ string Rectangle::toString() {
     // Points within shape
     oss << "Points within shape: ";
     isFirst = true;
-    for (int x = minX; x <= maxX; ++x) {
-        for (int y = minY; y <= maxY; ++y) {
+    for (int x = minX; x <= maxX; x++) {
+        for (int y = minY; y <= maxY; y++) {
             if (isPointInShape(x, y)) {
                 if (!isFirst) oss << ", ";
                 oss << "(" << x << ", " << y << ")";
