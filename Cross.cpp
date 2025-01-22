@@ -100,6 +100,7 @@ string Cross::toString() {
         oss << "none!";
     }
     oss << endl;
+    oss << endl;
 
     // Points within shape
     oss << "Points within shape: ";
