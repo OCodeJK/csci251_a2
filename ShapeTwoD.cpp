@@ -4,6 +4,11 @@
 
 using namespace std;
 
+//Default
+ShapeTwoD::ShapeTwoD() {
+    name = "";
+    containsWarpSpace = false;
+}
 
 //Constructor
 ShapeTwoD::ShapeTwoD(string name, bool containsWarpSpace) : name(name), containsWarpSpace(containsWarpSpace) {};

@@ -4,8 +4,9 @@
 #include <cmath>
 
 
-Rectangle::Rectangle(string name, bool containsWarpSpace, int x[], int y[])
-    : ShapeTwoD(name, containsWarpSpace) {
+Rectangle::Rectangle(string name, bool containsWarpSpace, int x[], int y[]) {
+    this->setName(name);
+    this->setContainsWarpSpace(containsWarpSpace);
     for (int i = 0; i < 4; i++) {
         xCoords[i] = x[i];
         yCoords[i] = y[i];

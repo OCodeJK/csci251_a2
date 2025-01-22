@@ -8,12 +8,13 @@
 #endif
 
 
-Circle::Circle(string name, bool containsWarpSpace, int centerX, int centerY, int radius)
-    : ShapeTwoD(name, containsWarpSpace) {
-        this->centerX = centerX;
-        this->centerY = centerY;
-        this->radius = radius;
-    }
+Circle::Circle(string name, bool containsWarpSpace, int centerX, int centerY, int radius) {
+    this->setName(name);
+    this->setContainsWarpSpace(containsWarpSpace);
+    this->centerX = centerX;
+    this->centerY = centerY;
+    this->radius = radius;
+}
 
 double Circle::computeArea() {
     return M_PI * radius * radius;

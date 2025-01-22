@@ -11,6 +11,7 @@ class ShapeTwoD {
         bool containsWarpSpace;
     public:
         //Constructor
+        ShapeTwoD(); //Default constructor
         ShapeTwoD(string name, bool containsWarpSpace);
         //Getters
         string getName();

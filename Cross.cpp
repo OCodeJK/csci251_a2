@@ -3,8 +3,9 @@
 #include <algorithm>
 #include <cmath>
 
-Cross::Cross(string name, bool containsWarpSpace, int x[], int y[])
-    : ShapeTwoD(name, containsWarpSpace) {
+Cross::Cross(string name, bool containsWarpSpace, int x[], int y[]) {
+    this->setName(name);
+    this->setContainsWarpSpace(containsWarpSpace);
     for (int i = 0; i < 12; i++) {
         xCoords[i] = x[i];
         yCoords[i] = y[i];
