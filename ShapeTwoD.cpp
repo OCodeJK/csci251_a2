@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//Default
+//Default Constructor
 ShapeTwoD::ShapeTwoD() {
     name = "";
     containsWarpSpace = false;
@@ -44,6 +44,3 @@ void ShapeTwoD::setName(string name) {
 void ShapeTwoD::setContainsWarpSpace(bool containsWarpSpace){
     this->containsWarpSpace = containsWarpSpace;
 }
-
-//Virtual Destructor
- ShapeTwoD::~ShapeTwoD(){}

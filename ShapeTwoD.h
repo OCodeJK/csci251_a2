@@ -28,9 +28,6 @@ class ShapeTwoD {
         virtual double computeArea() = 0;
         virtual bool isPointInShape(int x, int y) const = 0;
         virtual bool isPointOnShape(int x, int y) const = 0;
-
-        //virtual destructor
-        virtual ~ShapeTwoD();
 };
 
 #endif
