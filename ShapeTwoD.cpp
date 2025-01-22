@@ -10,6 +10,7 @@ ShapeTwoD::ShapeTwoD(string name, bool containsWarpSpace) : name(name), contains
 
 //Getter for name
 string ShapeTwoD::getName(){
+    name[0] = toupper(name[0]);
     return name;
 }
 

@@ -5,6 +5,7 @@
 #include "Square.h"
 #include "Rectangle.h"
 #include "Circle.h"
+#include "Cross.h"
 #include "extraFunction.h"
 
 using namespace std;
@@ -95,9 +96,7 @@ int main() {
                         cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
                         cin >> y[i];
                         cout << endl;
-
                     }
-                    shapeName = "Square";
 
                     if(shapeCount < 100) {
                         shapes[shapeCount] = new Square(shapeName, canWarpSpace, x, y);
@@ -114,14 +113,14 @@ int main() {
                         cout << endl;
 
                     }
-                    shapeName = "Rectangle";
-
+                    
                     if(shapeCount < 100) {
                         shapes[shapeCount] = new Rectangle(shapeName, canWarpSpace, x, y);
                         shapeCount++;
                     }
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 } else if (shapeName == "circle") {
+                    
                     int centerX, centerY, radius;
                     cout << "Please enter x-ordinate of center : ";
                     cin >> centerX;
@@ -134,7 +133,6 @@ int main() {
                     if (radius <= 0) {
                         errorMessage = "Radius must be greater than 0.";
                     } else {
-                        shapeName= "Circle";
                         if (shapeCount < 100) {
                             shapes[shapeCount] = new Circle(shapeName, canWarpSpace, centerX, centerY, radius);
                             shapeCount++;
@@ -142,8 +140,21 @@ int main() {
                     }
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 } else if (shapeName == "cross"){
-                    shapeName == "Cross";
-                    //implement cross here
+                    int x[12], y[12];
+
+                    for (int i=0; i < 12; i++){
+                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
+                        cin >> x[i];
+                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
+                        cin >> y[i];
+                        cout << endl;
+                    }
+                    
+                    if(shapeCount < 100) {
+                        shapes[shapeCount] = new Cross(shapeName, canWarpSpace, x, y);
+                        shapeCount++;
+                    }
+
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 }
                 break;
