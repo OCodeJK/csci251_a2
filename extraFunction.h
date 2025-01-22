@@ -5,6 +5,6 @@
 using namespace std;
 
 string toLowerCase(const string& str);
-
+void sortShapes(ShapeTwoD* shapes[], int shapeCount, string option);
 
 #endif

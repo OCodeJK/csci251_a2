@@ -82,7 +82,7 @@ int main() {
                 if (warpSpace == "ws") {
                     canWarpSpace = true;
                 } else if (warpSpace == "ns") {
-                    canWarpSpace == false;
+                    canWarpSpace = false;
                 } else {
                     errorMessage = "Invalid type, Please use NS or WS.";
                     break;
@@ -172,14 +172,13 @@ int main() {
                 break;
             //Print the shapes
             case 3:
-                cout << "Total no. of records available = " << shapeCount << endl;
+                cout << "\nTotal no. of records available = " << shapeCount << endl;
 
                 if (shapeCount == 0) {
                     cout << "No shapes available to display." << endl;
                 } else {
                     cout << endl;
                     for (int i = 0; i < shapeCount; i++) {
-                        cout << endl;
                         cout << "Shape [" << i << "]" << endl;
                         
                         cout << shapes[i]->toString() << endl; // Uses polymorphism to print the shape details
@@ -204,30 +203,10 @@ int main() {
                 cin >> subChoice;
 
                 //Implement sort function here
-                if (subChoice == "a") {
-                    //Sort shapes by area in ascending order
-                    cout << "\nSort by area (smallest to largest) ..." << endl;
-                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
-                        return a->computeArea() < b->computeArea();
-                    });
-                    
-                } else if (subChoice == "b") {
-                    //Sort shapes by area in descending order
-                    cout << "\nSort by area (largest to smallest) ..." << endl;
-                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
-                        return a->computeArea() > b->computeArea();
-                    });
-                } else if (subChoice == "c") {
-                    //Sort shapes by special type and area (descending)
-                    cout << "\nSort by special type (WS then NS) and area descending" << endl;
-                    sort(shapes, shapes + shapeCount, [](ShapeTwoD* a, ShapeTwoD* b) {
-                        if (a->getContainsWarpSpace() != b->getContainsWarpSpace()) {
-                            return a->getContainsWarpSpace() > b->getContainsWarpSpace();
-                        }
-                        return a->computeArea() > b->computeArea();
-                    });
-                    
-                } else if (subChoice == "q") {
+                sortShapes(shapes, shapeCount, subChoice);
+
+                //Quit submenu
+                if (subChoice == "q") {
                     break;
                 } else {
                     errorMessage = "Invalid choice. Going back to main menu...";
