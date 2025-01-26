@@ -44,3 +44,11 @@ void ShapeTwoD::setName(string name) {
 void ShapeTwoD::setContainsWarpSpace(bool containsWarpSpace){
     this->containsWarpSpace = containsWarpSpace;
 }
+
+void ShapeTwoD::setInsertionIndex(int index) {
+    insertionIndex = index;
+}
+
+int ShapeTwoD::getInsertionIndex() const {
+    return insertionIndex;
+}

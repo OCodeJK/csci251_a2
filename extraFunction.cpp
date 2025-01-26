@@ -41,3 +41,25 @@ void sortShapes(ShapeTwoD* shapes[], int shapeCount, string option) {
         cout << "\nInvalid sort option." << endl;
     }
 }
+
+int getValidatedInput(const string& prompt) {
+    string input;
+    int value;
+
+    while (true) {
+        cout << prompt;
+        cin >> input;
+
+        try {
+            size_t idx;
+            value = stoi(input, &idx);
+            if (idx == input.length() && value >= 0) {
+                return value; // Return the valid value
+            }
+        } catch (...) {
+            // Fall through to the error message
+        }
+
+        cout << "Invalid input. Please enter a non-negative integer." << endl;
+    }
+}

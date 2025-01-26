@@ -91,43 +91,38 @@ int main() {
                 if (shapeName == "square") {
                     int x[4], y[4];
                     for (int i=0; i< 4; i++){
-                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
-                        cin >> x[i];
-                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
-                        cin >> y[i];
+                        x[i] = getValidatedInput("Please enter x-ordinate of pt. " + to_string(i + 1) + ": ");
+                        y[i] = getValidatedInput("Please enter y-ordinate of pt. " + to_string(i + 1) + ": ");
                         cout << endl;
                     }
 
                     if(shapeCount < 100) {
                         shapes[shapeCount] = new Square(shapeName, canWarpSpace, x, y);
+                        shapes[shapeCount]->setInsertionIndex(shapeCount);
                         shapeCount++;
                     }
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 } else if (shapeName == "rectangle") {
                     int x[4], y[4];
                     for (int i=0; i< 4; i++){
-                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
-                        cin >> x[i];
-                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
-                        cin >> y[i];
+                        x[i] = getValidatedInput("Please enter x-ordinate of pt. " + to_string(i + 1) + ": ");
+                        y[i] = getValidatedInput("Please enter y-ordinate of pt. " + to_string(i + 1) + ": ");
                         cout << endl;
 
                     }
                     
                     if(shapeCount < 100) {
                         shapes[shapeCount] = new Rectangle(shapeName, canWarpSpace, x, y);
+                        shapes[shapeCount]->setInsertionIndex(shapeCount);
                         shapeCount++;
                     }
                     cout << "Records sucessfully stored. Going back to main menu ...";
                 } else if (shapeName == "circle") {
                     
-                    int centerX, centerY, radius;
-                    cout << "Please enter x-ordinate of center : ";
-                    cin >> centerX;
-                    cout << "Please enter y-ordinate of center : ";
-                    cin >> centerY;
-                    cout << "Please enter radius : ";
-                    cin >> radius;
+                    int centerX = getValidatedInput("Please enter x-ordinate of center: ");
+                    int centerY = getValidatedInput("Please enter y-ordinate of center: ");
+                    int radius = getValidatedInput("Please enter radius: ");
+                    cout << endl;
 
                     //validate radius
                     if (radius <= 0) {
@@ -135,6 +130,7 @@ int main() {
                     } else {
                         if (shapeCount < 100) {
                             shapes[shapeCount] = new Circle(shapeName, canWarpSpace, centerX, centerY, radius);
+                            shapes[shapeCount]->setInsertionIndex(shapeCount);
                             shapeCount++;
                         }
                     }
@@ -143,15 +139,14 @@ int main() {
                     int x[12], y[12];
 
                     for (int i=0; i < 12; i++){
-                        cout << "Please enter x-ordinate of pt. " << i+1 << ": ";
-                        cin >> x[i];
-                        cout << "Please enter y-ordinate of pt. " << i+1 << ": ";
-                        cin >> y[i];
+                        x[i] = getValidatedInput("Please enter x-ordinate of pt. " + to_string(i + 1) + ": ");
+                        y[i] = getValidatedInput("Please enter y-ordinate of pt. " + to_string(i + 1) + ": ");
                         cout << endl;
                     }
                     
                     if(shapeCount < 100) {
                         shapes[shapeCount] = new Cross(shapeName, canWarpSpace, x, y);
+                        shapes[shapeCount]->setInsertionIndex(shapeCount);
                         shapeCount++;
                     }
 
@@ -208,15 +203,13 @@ int main() {
                 //Quit submenu
                 if (subChoice == "q") {
                     break;
-                } else {
-                    errorMessage = "Invalid choice. Going back to main menu...";
                 }
                 //Output sorted shapes in the same format as case 3
                 if (shapeCount == 0) {
                     cout << "No shapes available to display." << endl;
                 } else {
                     for (int i = 0; i < shapeCount; i++) {
-                        cout << "\nShape [" << i << "]" << endl;
+                        cout << "\nShape [" << shapes[i]->getInsertionIndex() << "]" << endl;
                         cout << shapes[i]->toString() << endl;
                     }
                 }

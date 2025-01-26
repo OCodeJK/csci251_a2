@@ -9,6 +9,7 @@ class ShapeTwoD {
     protected:
         string name;
         bool containsWarpSpace;
+        int insertionIndex;
     public:
         //Constructor
         ShapeTwoD(); //Default constructor
@@ -28,6 +29,10 @@ class ShapeTwoD {
         virtual double computeArea() = 0;
         virtual bool isPointInShape(int x, int y) const = 0;
         virtual bool isPointOnShape(int x, int y) const = 0;
+
+        //For the index (Shape[n])
+        void setInsertionIndex(int index);
+        int getInsertionIndex() const;
 };
 
 #endif
