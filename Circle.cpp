@@ -41,10 +41,10 @@ string Circle::toString() {
 
     // Points on perimeter: Only the 4 cardinal points (N, S, E, W)
     oss << "\nPoints on perimeter: ";
-    oss << "North: (" << centerX << ", " << centerY + radius << "), ";  // North
-    oss << "South: (" << centerX << ", " << centerY - radius << "), ";  // South
-    oss << "East: (" << centerX + radius << ", " << centerY << "), ";  // East
-    oss << "West: (" << centerX - radius << ", " << centerY << ")";    // West
+    oss << "(" << centerX << ", " << centerY + radius << "), ";  // North
+    oss << "(" << centerX << ", " << centerY - radius << "), ";  // South
+    oss << "(" << centerX + radius << ", " << centerY << "), ";  // East
+    oss << "(" << centerX - radius << ", " << centerY << ")";    // West
     oss << endl;
 
     // Points within shape

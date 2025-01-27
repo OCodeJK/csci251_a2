@@ -38,7 +38,11 @@ bool Cross::isPointOnShape(int x, int y) const {
 }
 
 bool Cross::isPointInShape(int x, int y) const {
-    // Ray-casting algorithm to check if the point is inside the cross
+    if (isPointOnShape(x, y)) {
+        return false; // Exclude perimeter points
+    }
+
+    // Ray-casting algorithm to check if the point is inside the shape
     int intersections = 0;
     for (int i = 0; i < 12; i++) {
         int x1 = xCoords[i], y1 = yCoords[i];
@@ -50,6 +54,7 @@ bool Cross::isPointInShape(int x, int y) const {
             intersections++;
         }
     }
+
     return (intersections % 2 == 1); // Odd intersections mean inside
 }
 
@@ -80,7 +85,7 @@ string Cross::toString() {
     for (int x = minX; x <= maxX; x++) {
         for (int y = minY; y <= maxY; y++) {
             if (isPointOnShape(x, y)) {
-                // Exclude vertices from the perimeter points
+                // Exclude vertices from the perimeter points given
                 bool isVertex = false;
                 for (int i = 0; i < 12; i++) {
                     if (x == xCoords[i] && y == yCoords[i]) {
@@ -109,11 +114,12 @@ string Cross::toString() {
     bool hasInnerPoints = false;
     for (int x = minX; x <= maxX; x++) {
         for (int y = minY; y <= maxY; y++) {
+            bool isVertex = false;
             if (isPointInShape(x, y)) {
                 if (!isFirst) oss << ", ";
                 oss << "(" << x << ", " << y << ")";
                 isFirst = false;
-                hasInnerPoints = true;
+                hasInnerPoints = true; 
             }
         }
     }
@@ -125,28 +131,3 @@ string Cross::toString() {
     return oss.str();
 
 }
-/*
-Shape [0]
-Name: Cross
-Special Type: WS
-Area: 5 square units
-Vertices:
-Point [0]: (1, 5)
-Point [1]: (2, 5)
-Point [2]: (2, 4)
-Point [3]: (3, 4)
-Point [4]: (3, 5)
-Point [5]: (4, 5)
-Point [6]: (4, 6)
-Point [7]: (3, 6)
-Point [8]: (3, 7)
-Point [9]: (2, 7)
-Point [10]: (2, 6)
-Point [11]: (1, 6)
-
-Points on perimeter: none!
-Points within shape: (1, 5), (2, 4), (2, 5), (2, 6), (3, 5)
-
-Does this look correct? this coordinates does draw a cross but does it matter the order of coordinates i put in first
-
-*/
